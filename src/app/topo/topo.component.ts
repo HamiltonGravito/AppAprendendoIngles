@@ -11,5 +11,6 @@ export class TopoComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  //One-Way-Binding (Comunicação da classe para o template) / String Interpolation {{}} (Permite a inclusão de atribtos em qualquer lugar do template e também realiza expressões)
+  public titulo: string = "Aprendendo Inglês";
 }
