@@ -11,11 +11,17 @@
     
     <div class="row">
       <div class="col">
-        <h6>Traduza a Frase:</h6>
-        <p>...Frase...</p>
+        <h6>{{ instrucao }}</h6>
+        <p>{{ frases[0].fraseEng }}</p>
 
+        <!-- (input) Event biding - Captura um evento do template e associa a uma função no component -->
         <div class="form-group">
-          <textarea class="form-control" rows="3"></textarea>
+          <textarea 
+          class="form-control" 
+          rows="1"
+          (input)="atualizaResposta()">
+            
+          </textarea>
         </div>
       </div>
     </div>
