@@ -1,6 +1,14 @@
 <div class="d-flex justify-content-end">
-  <!-- Property Binding - Aletra o valor dos elementos das tag e setes precisam estar marcados com [] -->
+  <!-- Property Binding - Aletra o valor dos elementos das tag e setes precisam estar marcados com []
   <img [src]='coracaoVazio' />
   <img [src]='coracaoVazio' />
   <img [src]='coracaoCheio' />
+  -->
+
+  <!-- Diretivas: Funcionalidades que manipulam o comportamento de elementos HTML no DOM
+  "Modificação do template entregue ao brawser" -->
+  <!-- ngFor (Diretiva Estrutural) Informa o elemento + ngFor="For Each(Java)", Neste caso
+  estou perrcorrendo o array corações e a cada interação chamo o metodo exibe coracao do mesmo -->
+  <img *ngFor="let coracao of coracoes" [src]="coracao.exibeCoracao()" />
+
 </div>
