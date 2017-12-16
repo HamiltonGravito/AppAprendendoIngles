@@ -21,6 +21,10 @@ export class PainelComponent implements OnInit {
 
   public tentativasPainel: number = 3;
 
+  //Ciclo de Vida - ngOnChanges() é desparado logo depois do constructor, podendo assim alterar
+  //propriedades no momento da instancia do mesmo;
+  //ngOnInit() - Neste momento a instancia do component já está completa, então pode-se realizar ações;
+  //ngOnDestroy() - Executado quando o component deixa de existir (Ex.: Condições);
   constructor() {
     this.atualizaRodada();
   }
@@ -58,8 +62,9 @@ export class PainelComponent implements OnInit {
 
   public atualizaRodada(): void{
     //Inicia o component com uma frase de acordo com a rodada;
+    if(this.rodada < this.frases.length){
     this.rodadaFrase = this.frases[this.rodada];
-    
+    }
     //limpar resposta
     this.resposta = "";
   }
