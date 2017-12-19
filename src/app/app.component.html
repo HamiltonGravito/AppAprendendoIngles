@@ -1,2 +1,26 @@
 <app-topo></app-topo>
-<app-painel></app-painel>
+<!-- Diretiva estrutural ngIf aparece enquanto o jogoEmAndamento = true ELSE faz o apontamento para o template contento #fimDeJogo -->
+<div *ngIf="jogoEmAndamento; else fimDeJogo">
+    <!-- Event Biding que será executado quando o component painel efetuar o @Output encerrarJogo-->
+    <app-painel (encerrarJogo)="encerrarJogo($event)"></app-painel>
+</div>
+
+<ng-template #fimDeJogo>
+    <div *ngIf="tipoEncerramento === 'derrota'; else fimDeJogoVitoria" class="container" style="text-align: center; margin-top: 50px">
+        <div class="row">
+            <div class="col">
+                <h3 style='color: red'>Game Over!!!</h3>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #fimDeJogoVitoria>
+        <div class="container" style="text-align: center; margin-top: 50px">
+            <div class="row">
+                <div class="col">
+                    <h3 style='color: green'>Congratulations!!!</h3>
+                </div>
+            </div>
+        </div>
+</ng-template>

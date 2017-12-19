@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 
 import { Frase } from "../shared/frase.model" 
 import { FRASES } from "./frases.mock"
@@ -8,7 +8,7 @@ import { FRASES } from "./frases.mock"
   templateUrl: './painel.component.html',
   styleUrls: ['./painel.component.css']
 })
-export class PainelComponent implements OnInit {
+export class PainelComponent implements OnInit, OnDestroy {
 
   public frases: Frase[] = FRASES;
   public instrucao: string = "Traduza a Frase: ";
@@ -21,6 +21,10 @@ export class PainelComponent implements OnInit {
 
   public tentativasPainel: number = 3;
 
+  //@Output é usado para comunicação do component filho para o pai, precisa ser importado do core do angular
+  //O EventEmitter dispara um evento, onde, o tipo a ser trabalhado é uma string
+  @Output() public encerrarJogo: EventEmitter<string> = new EventEmitter();
+
   //Ciclo de Vida - ngOnChanges() é desparado logo depois do constructor, podendo assim alterar
   //propriedades no momento da instancia do mesmo;
   //ngOnInit() - Neste momento a instancia do component já está completa, então pode-se realizar ações;
@@ -32,6 +36,10 @@ export class PainelComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    console.log("Painel foi Destruído!");
+  }
+
   public atualizaResposta(resposta: Event): void {
     //Esse é um elemento HTMLInputElement e assin é possivel acessar o value contigo no target do elemento
     this.resposta = (<HTMLInputElement>resposta.target).value;
@@ -40,7 +48,6 @@ export class PainelComponent implements OnInit {
   public verificarResposta(): void {
     
     if(this.rodadaFrase.frasePtBr == this.resposta){
-      alert("A tradução esta CORRETA!");
        //Trocar pergunta da rodada
       this.rodada++;
 
@@ -50,11 +57,10 @@ export class PainelComponent implements OnInit {
       this.atualizaRodada();
     
     } else {
-        alert("A tradução está INCORRETA!");
         this.tentativasPainel--;
 
         if(this.tentativasPainel === -1){
-          alert("GAME OVER!")
+          this.encerrarJogo.emit("derrota");
         }
     }
     
@@ -64,6 +70,8 @@ export class PainelComponent implements OnInit {
     //Inicia o component com uma frase de acordo com a rodada;
     if(this.rodada < this.frases.length){
     this.rodadaFrase = this.frases[this.rodada];
+    }else if (this.rodada === this.frases.length) {
+      this.encerrarJogo.emit("vitoria")
     }
     //limpar resposta
     this.resposta = "";
