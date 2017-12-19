@@ -4,13 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "main": "server.js",
   "private": true,
   "dependencies": {
     "@angular/animations": "^5.0.0",
