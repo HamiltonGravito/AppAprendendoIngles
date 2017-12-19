@@ -27,7 +27,14 @@ export class TentativasComponent implements OnInit, OnChanges {
   //Ciclo de Vida - Metodo executado durante o processo de decoração (input dos dados) de um component pai para filho
   ngOnChanges(){
     //Nesse caso sempre que o valor de tentativas for atualizado essa informação irá aparecer
-    console.log(this.tentativas);
+    //console.log(this.tentativas);
+
+    //Se o total de tentativas for diferente do tamanho do array de tentativas
+    //então, diminuo do total de elementos do array a quantidade de tentativas menos 1 porque o array começa de zero.
+    if(this.tentativas !== this.coracoes.length){
+      let indice = this.coracoes.length - this.tentativas;
+      this.coracoes[indice - 1].cheio = false;
+    }
   }
 
   //Esse metodo é executado apenas uma unica vez quando o component é instanciado
@@ -35,6 +42,6 @@ export class TentativasComponent implements OnInit, OnChanges {
     //Essa instrução é inserida aqui para que o processo de decoração de variavel
     //de tentativas seja executado, o que não acontece dentro do constructor, pois,
     //as propriedades do objeto só são alteradas no metodo ngOnChangs depois do constructor.
-    console.log(this.tentativas);
+    //console.log(this.tentativas);
   }
 }
